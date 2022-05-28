@@ -5,6 +5,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CamScreen from './src/screens/CamScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,11 +36,21 @@ const MyStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+      <Stack.Screen
           name="Home"
           component={HomeScreen}
         />
         <Stack.Screen
+          name="Camera"
+          component={CamScreen}
+          options={{
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
+          }}
+        />
+      <Stack.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
@@ -48,7 +59,9 @@ const MyStack = () => {
             close: config,
           },
         }}
-      />
+        />
+        
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -60,23 +73,25 @@ export default ()=>{
   )
 }
 
-/*
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import AccountScreen from './src/screens/AccountScreen.js';
-import TrackCreateScreen from './src/screens/TrackCreateScreen';
 
-const switchNavigator = createSwitchNavigator({
-    TrackCreate: TrackCreateScreen,
-    Account: AccountScreen,
-});
 
-const App = createAppContainer(switchNavigator);
 
-export default () => {
-  return (
-          <App />
-        );
-};
 
-*/
+// import React from 'react';
+// import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+// import AccountScreen from './src/screens/AccountScreen.js';
+// import TrackCreateScreen from './src/screens/TrackCreateScreen';
+
+// const switchNavigator = createSwitchNavigator({
+//     TrackCreate: TrackCreateScreen,
+//     Account: AccountScreen,
+// });
+
+// const App = createAppContainer(switchNavigator);
+
+// export default () => {
+//   return (
+//           <App />
+//         );
+// };
+
