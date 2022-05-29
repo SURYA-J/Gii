@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, Text, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, Text, View, TouchableOpacity, StatusBar } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
 
 
@@ -55,6 +55,7 @@ export default function CamScreen() {
     return <Text>No access to camera</Text>;
   }
   return (
+
     <View           
     style={{
       flex: 1,
@@ -68,6 +69,13 @@ export default function CamScreen() {
           ref={(r) => {
             camera = r
           }} type={type}>
+        <StatusBar
+        animated={true}
+        backgroundColor="#0d0d0d"
+        barStyle='light-content'
+        showHideTransition="slide"
+        />
+            
         <View
         style={{
         position: 'absolute',

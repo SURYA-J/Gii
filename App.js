@@ -3,22 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
-
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CamScreen from './src/screens/CamScreen';
-
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={ProfileScreen} />
-    </Tab.Navigator>
-  </NavigationContainer>
-  );
-}
+import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import { Suspense } from 'react';
 
 const Stack = createNativeStackNavigator();
 const config = {
@@ -33,12 +20,30 @@ const config = {
   },
 };
 const MyStack = () => {
+  let [fontsLoaded] = useFonts({
+    Pacifico_400Regular,
+  });
+
+  let fontSize = 18;
+  if (!fontsLoaded) {
+    return null
+  } else{
   return (
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen
           name="Home"
           component={HomeScreen}
+          options={{ title: 'GII',
+          headerStyle: {
+          backgroundColor: 'black',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+              fontSize,
+              // Note the quoting of the value for `fontFamily` here; it expects a string!
+              fontFamily: 'Pacifico_400Regular',
+          },}}
         />
         <Stack.Screen
           name="Camera"
@@ -47,7 +52,15 @@ const MyStack = () => {
             transitionSpec: {
               open: config,
               close: config,
-            },
+            },headerStyle: {
+              backgroundColor: 'black',
+              },
+              headerTintColor: 'white',
+              headerTitleStyle: {
+                  fontSize,
+                  // Note the quoting of the value for `fontFamily` here; it expects a string!
+                  fontFamily: 'Pacifico_400Regular',
+              },
           }}
         />
       <Stack.Screen
@@ -58,13 +71,22 @@ const MyStack = () => {
             open: config,
             close: config,
           },
-        }}
+          title: 'GII',
+          headerStyle: {
+          backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontFamily:"Pacifico_400Regular"
+          }}
+        }
         />
         
         
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  );}
 };
 
 export default ()=>{
