@@ -2,20 +2,26 @@ import React, { useState, useEffect } from "react";
 import { Button, Image, View, Platform, StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
+import Api from "../Components/Api";
 
 export default function ImagePickerExample() {
   const [image, setImage] = useState(null);
+  const [fileData, setFileData] = useState();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
+      base64: true,
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
+    
+    Api(fileData)
+    setFileData(result)
+    console.log("resssssssss",result);
+    console.log(result.base64);
 
     if (!result.cancelled) {
       setImage(result.uri);

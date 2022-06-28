@@ -1,0 +1,27 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gii-dev-121703-authRole",
+      "UnauthRoleArn": "arn:aws:iam::286527155341:role/amplify-gii-dev-121703-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::286527155341:role/amplify-gii-dev-121703-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-gii-dev-121703-deployment",
+      "UnauthRoleName": "amplify-gii-dev-121703-unauthRole",
+      "StackName": "amplify-gii-dev-121703",
+      "StackId": "arn:aws:cloudformation:ap-south-1:286527155341:stack/amplify-gii-dev-121703/cb2c32b0-f064-11ec-b00e-0296bd5aba76",
+      "AmplifyAppId": "d2svjvhk2a8csb"
+    },
+    "categories": {
+      "function": {
+        "gii574be2b7": {
+          "deploymentBucketName": "amplify-gii-dev-121703-deployment",
+          "s3Key": "amplify-builds/gii574be2b7-7144443238355a6b6f65-build.zip"
+        }
+      },
+      "auth": {
+        "giia5f299ab": {},
+        "true": {}
+      }
+    }
+  }
+}

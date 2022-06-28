@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/gii/{giiId}": {
+      "name": "/gii/{giiId}",
+      "lambdaFunction": "gii574be2b7",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

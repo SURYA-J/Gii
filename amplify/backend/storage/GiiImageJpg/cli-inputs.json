@@ -1,0 +1,18 @@
+{
+  "resourceName": "GiiImageJpg",
+  "policyUUID": "4c3fb8d8",
+  "bucketName": "gii3409a17c1dc54509918359e7270418af",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "gii574be2b7",
+  "groupAccess": {}
+}

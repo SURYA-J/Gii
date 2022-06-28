@@ -5,7 +5,6 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import CamScreen from "./src/screens/CamScreen";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
-import { Suspense } from "react";
 
 const Stack = createNativeStackNavigator();
 const config = {
