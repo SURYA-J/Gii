@@ -9,6 +9,7 @@ export default function ImagePickerExample() {
   const [fileData, setFileData] = useState();
 
   const pickImage = async () => {
+    console.log("hii");
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       base64: true,

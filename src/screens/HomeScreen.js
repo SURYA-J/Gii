@@ -10,6 +10,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ImageBackground, PixelRatio } from "react-native";
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
+import Api from "../Components/Api";
+import ResultScreen from "./ResultScreen";
+import Amplify, { Storage , API } from 'aws-amplify';
+import awsconfig from './../aws-exports';
+Amplify.configure(awsconfig);
+API.configure(awsconfig);
+
+const myAPI = "apic83ac0aa"
+const path = '/gii'; 
 let FONT_BACK_LABEL = 23;
 
 if (PixelRatio.get() <= 2) {
@@ -17,23 +26,49 @@ if (PixelRatio.get() <= 2) {
 }
 const HomeScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
+  const [pred,setPred]=useState();
+  const [previewVisible, setPreviewVisible] = useState(false);
 
+  const Api=async(fileData)=>{
+    let result
+          
+            result =await Storage.put(fileData.uri.slice(-40), fileData.base64, {
+            contentType: "image/jpg",
+          }
+          ).then(getGii(fileData.uri.slice(-40)))
+        setPreviewVisible(true)
+        };
+  const getGii= (data)=> {
+           
+    const giiId=data
+    API.get(myAPI, path + "/" + giiId)
+       .then(response => {
+         console.log(response)
+         setPred(response)
+       })
+       .catch(error => {
+         console.log(error)
+       })
+      }
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
+      quality: 0.8,
+      base64: true
     });
-
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
+    Api(result)
+    console.log(result.uri);
+    setImage(result)
   };
   return (
+    <>
+     {previewVisible && image && pred? (
+        <ResultScreen
+          photo={image} result={pred}
+          // /*savePhoto={__savePhoto}*/ retakePicture={__retakePicture}
+        />
+      ) : (
     <View style={styles.container}>
       <StatusBar
         animated={true}
@@ -93,7 +128,9 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </LinearGradient>
       </ImageBackground>
-    </View>
+    </View>)}
+    </>
+    
   );
 };
 

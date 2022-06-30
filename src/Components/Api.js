@@ -7,9 +7,8 @@ const myAPI = "apic83ac0aa"
 const path = '/gii'; 
 
 const Api=async(fileData)=>{
-  console.log(fileData);
   let result
-        
+        console.log("jollo");
           result =await Storage.put(fileData.uri.slice(-40), fileData.base64, {
           contentType: "image/jpg",
         }

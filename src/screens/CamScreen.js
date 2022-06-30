@@ -9,71 +9,51 @@ import {
 } from "react-native";
 import { Camera, CameraType } from "expo-camera";
 import Api from "../Components/Api";
-// import Amplify, { Storage, API } from "aws-amplify";
-// import awsconfig from "./../aws-exports";
-// Amplify.configure(awsconfig);
-// API.configure(awsconfig);
+import ResultScreen from "./ResultScreen";
+import Amplify, { Storage , API } from 'aws-amplify';
+import awsconfig from './../aws-exports';
+Amplify.configure(awsconfig);
+API.configure(awsconfig);
 
-// const myAPI = "apic83ac0aa";
-// const path = "/gii";
-
-export default function CamScreen() {
+const myAPI = "apic83ac0aa"
+const path = '/gii'; 
+const CamScreen=()=> {
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(CameraType.back);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
-  const [fileData, setFileData] = useState(null);
-  // const uploadFile = async () => {
-  //   let result;
-  //   console.log("hola");
-  //     result = await Storage.put(fileData.uri.slice(-40), fileData.base64, {
-  //       contentType: "image/jpg",
-  //     }).then(getGii());
+  const [pred,setPred]=useState();
+  // const __retakePicture = () => {
+  //   setCapturedImage(null);
+  //   setPreviewVisible(false);
+  //   __startCamera();
   // };
-  // const getGii = () => {
-  //   let giiId = fileData.uri.slice(-40);
-  //   API.get(myAPI, path + "/" + giiId)
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  const __retakePicture = () => {
-    setCapturedImage(null);
-    setPreviewVisible(false);
-    __startCamera();
-  };
+const Api=async(fileData)=>{
+  let result
+        
+          result =await Storage.put(fileData.uri.slice(-40), fileData.base64, {
+          contentType: "image/jpg",
+        }
+        ).then(getGii(fileData.uri.slice(-40)))
+      };
+const getGii= (data)=> {
+         
+  const giiId=data
+  API.get(myAPI, path + "/" + giiId)
+     .then(response => {
+       console.log(response)
+      setPred(response)
+     })
+     .catch(error => {
+       console.log(error)
+     })
+    }
   const width = Dimensions.get("window").width;
   let height = (4 * width) / 3;
   const CameraPreview = ({ photo }) => {
-    // console.log("sdsfds", photo);
-
-    setFileData(photo)
-    if (fileData != null) {
-      Api(fileData);
-    }
-    // Api(fileData)
-
+    Api(photo)
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          backgroundColor: "black",
-          paddingBottom: "15%",
-        }}
-      >
-        <ImageBackground
-          source={{ uri: photo && photo.uri }}
-          style={{
-            width: width,
-            height: height,
-            alignSelf: "center",
-          }}
-        />
+      <View>
+        <ResultScreen result={pred} photo={photo}/>
       </View>
     );
   };
@@ -102,7 +82,7 @@ export default function CamScreen() {
       {previewVisible && capturedImage ? (
         <CameraPreview
           photo={capturedImage}
-          /*savePhoto={__savePhoto}*/ retakePicture={__retakePicture}
+          // /*savePhoto={__savePhoto}*/ retakePicture={__retakePicture}
         />
       ) : (
         <View
@@ -127,7 +107,7 @@ export default function CamScreen() {
               ref={(r) => {
                 camera = r;
               }}
-              type={type}
+              type={CameraType.back}
             >
               <StatusBar
                 animated={true}
@@ -173,3 +153,5 @@ export default function CamScreen() {
     </>
   );
 }
+
+export default CamScreen;

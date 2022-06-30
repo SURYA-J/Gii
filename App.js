@@ -5,6 +5,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import CamScreen from "./src/screens/CamScreen";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
+import ResultScreen from "./src/screens/ResultScreen";
 
 const Stack = createNativeStackNavigator();
 const config = {
@@ -64,8 +65,8 @@ const MyStack = () => {
             }}
           />
           <Stack.Screen
-            name="Profile"
-            component={ProfileScreen}
+            name="Result"
+            component={ResultScreen}
             options={{
               transitionSpec: {
                 open: config,
@@ -91,21 +92,3 @@ const MyStack = () => {
 export default () => {
   return <MyStack />;
 };
-
-// import React from 'react';
-// import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-// import AccountScreen from './src/screens/AccountScreen.js';
-// import TrackCreateScreen from './src/screens/TrackCreateScreen';
-
-// const switchNavigator = createSwitchNavigator({
-//     TrackCreate: TrackCreateScreen,
-//     Account: AccountScreen,
-// });
-
-// const App = createAppContainer(switchNavigator);
-
-// export default () => {
-//   return (
-//           <App />
-//         );
-// };
