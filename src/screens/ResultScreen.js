@@ -9,7 +9,6 @@ if (PixelRatio.get() <= 2) {
   FONT_BACK_LABEL = 18;
 }
 const ResultScreen = ({result,photo}) => {
-  console.log(photo)
   return (
     <View style={{flexDirection:'row'}}>
 

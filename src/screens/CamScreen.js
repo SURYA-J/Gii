@@ -58,7 +58,7 @@ const getGii= (data)=> {
     );
   };
   const __takePicture = async () => {
-    const options = { quality: 0.8, base64: true };
+    const options = { quality: 0.5, base64: true };
     if (!camera) return;
     const photo = await camera.takePictureAsync(options);
     setPreviewVisible(true);

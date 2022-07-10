@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   StatusBar,
+  BackHandler,
 } from "react-native";
 import { IconButton, Colors } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
@@ -28,7 +29,17 @@ const HomeScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [pred,setPred]=useState();
   const [previewVisible, setPreviewVisible] = useState(false);
+  useEffect(() => {
+    function handleBackButton() {
+      navigation.navigate('Home');
+      setPreviewVisible(false)
+      return true;
+    }
 
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+
+    return () => backHandler.remove();
+  }, [navigation]);
   const Api=async(fileData)=>{
     let result
           
@@ -39,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
         setPreviewVisible(true)
         };
   const getGii= (data)=> {
-           
+           console.log("HII");
     const giiId=data
     API.get(myAPI, path + "/" + giiId)
        .then(response => {
@@ -54,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 0.8,
+      quality: 0.999,
       base64: true
     });
     Api(result)
